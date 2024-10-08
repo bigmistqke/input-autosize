@@ -1,6 +1,6 @@
 {
   "name": "@bigmistqke/input-autosize",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "autosizing input/contenteditable (custom-element)",
   "license": "MIT",
   "author": "bigmistqke",
