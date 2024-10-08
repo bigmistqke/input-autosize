@@ -5,8 +5,7 @@ import {
   ElementAttributes,
   stringAttribute,
 } from '@lume/element'
-import { signal } from 'classy-solid'
-import { ContentEditable, Patch } from './contenteditable'
+import { ContentEditable } from './contenteditable'
 
 /**********************************************************************************/
 /*                                                                                */
@@ -63,11 +62,6 @@ export class TmTextareaElement extends Element {
       white-space: pre;
     }`
 
-  @signal bindings: Record<
-    string,
-    (event: KeyboardEvent & { currentTarget: HTMLElement }) => Patch | null
-  > = {}
-
   template = () => (
     <ContentEditable
       value={this.value}
@@ -76,12 +70,11 @@ export class TmTextareaElement extends Element {
         this.value = value
         this.dispatchEvent(new ValueEvent(value))
       }}
-      bindings={this.bindings}
     />
   )
 }
 
-// NOTE:  <tm-textarea/> is already defined with lume's @element() decorator.
+// NOTE:  <input-autosize/> is already defined with lume's @element() decorator.
 //        register is a NOOP, but is needed for rollup not to treeshake
 //        the custom-element declaration out of the bundle.
 export function register() {

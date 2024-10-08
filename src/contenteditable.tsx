@@ -164,16 +164,17 @@ export interface ContentEditableProps
   extends Omit<ComponentProps<'div'>, 'onInput' | 'children' | 'contenteditable' | 'style'> {
   value: string
   onValue?: (value: string) => void
-  bindings?: Record<string, (event: KeyboardEvent & { currentTarget: HTMLElement }) => Patch | null>
   style?: JSX.CSSProperties
   editable?: boolean
 }
 
 export function ContentEditable(props: ContentEditableProps) {
-  const [config, rest] = splitProps(
-    mergeProps({ spellcheck: false, editable: true, bindings: {} }, props),
-    ['onValue', 'value', 'bindings', 'style', 'editable'],
-  )
+  const [config, rest] = splitProps(mergeProps({ spellcheck: false, editable: true }, props), [
+    'onValue',
+    'value',
+    'style',
+    'editable',
+  ])
   const [element, setElement] = createSignal<HTMLDivElement>()
   const [value, setValue] = createWritable(() => props.value)
   const history = createHistory()
@@ -261,17 +262,6 @@ export function ContentEditable(props: ContentEditableProps) {
   }
 
   function onKeyDown(event: KeyboardEvent & { currentTarget: HTMLElement }) {
-    if (event.key in config.bindings) {
-      const patch = config.bindings[event.key]!(event)
-      if (patch) {
-        applyPatch(patch)
-        const [[range, data, selection]] = patch
-        if (selection) {
-          select(...selection)
-        }
-      }
-    }
-
     if (event.ctrlKey || event.metaKey) {
       switch (event.key) {
         // Undo: ctrl+z

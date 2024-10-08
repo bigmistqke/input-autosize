@@ -24,25 +24,23 @@
   "types": "./dist/index.d.ts",
   "browser": {},
   "exports": {
-    "solid": {
-      "development": "./dist/dev.jsx",
-      "import": "./dist/index.jsx"
-    },
-    "development": {
+    ".": {
       "import": {
         "types": "./dist/index.d.ts",
-        "default": "./dist/dev.js"
+        "default": "./dist/index.js"
       }
     },
-    "import": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+    "./solid": {
+      "import": {
+        "types": "./dist/solid.d.ts",
+        "default": "./dist/solid.js"
+      }
     }
   },
   "typesVersions": {},
   "scripts": {
     "dev": "vite serve dev",
-    "build": "tsup",
+    "build": "vite build",
     "test": "concurrently pnpm:test:*",
     "test:client": "vitest",
     "test:ssr": "pnpm run test:client --mode ssr",
@@ -62,6 +60,7 @@
     "@typescript-eslint/parser": "^7.9.0",
     "concurrently": "^8.2.2",
     "esbuild": "^0.21.3",
+    "esbuild-plugin-babel": "^0.2.3",
     "esbuild-plugin-solid": "^0.6.0",
     "eslint": "^8.56.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
@@ -69,11 +68,12 @@
     "jsdom": "^24.0.0",
     "prettier": "3.0.0",
     "solid-js": "^1.8.17",
-    "tsup": "^8.0.2",
     "tsup-preset-solid": "^2.2.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.11",
+    "vite-plugin-dts-bundle-generator": "^2.0.5",
     "vite-plugin-solid": "^2.10.2",
+    "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^1.6.0"
   },
   "keywords": [
